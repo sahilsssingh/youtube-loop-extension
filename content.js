@@ -4,33 +4,21 @@ let startTime = null;
 let endTime = null;
 let playNumber = Number(prompt("How many times should the part play?"));
  
+makeButton("Set Start", "60px", () => {startTime = vid.currentTime})
+makeButton("Set End", "80px", () => {endTime = vid.currentTime})
+makeButton("Start Playing", "100px", () => {startLoop(startTime, endTime, playNumber)})
+makeButton("Stop Playing", "120px", () => {stopLoop()})
 
-const startBtn = document.createElement("button");
-startBtn.textContent = "Set Start";
-startBtn.addEventListener("click", () => {startTime = vid.currentTime});
-startBtn.style.position = "fixed";
-startBtn.style.top = "60px";
-startBtn.style.left = "20px";
-startBtn.style.zIndex = "9999";
-document.body.append(startBtn);
-
-const endBtn = document.createElement("button");
-endBtn.textContent = "Set End"
-endBtn.addEventListener("click", () => {endTime = vid.currentTime});
-endBtn.style.position = "fixed";
-endBtn.style.top = "80px";
-endBtn.style.left = "20px";
-endBtn.style.zIndex = "9999";
-document.body.append(endBtn);
-
-const startPlaying = document.createElement("button");
-startPlaying.textContent = "Start Playing"
-startPlaying.addEventListener("click", () => {startLoop(startTime, endTime, playNumber)})
-startPlaying.style.position = "fixed";
-startPlaying.style.top = "100px";
-startPlaying.style.left = "20px";
-startPlaying.style.zIndex = "9999";
-document.body.append(startPlaying);
+function makeButton(label, top, onClick){
+  const btn = document.createElement("button");
+  btn.textContent = label;
+  btn.addEventListener("click", onClick);
+  btn.style.position = "fixed";
+  btn.style.top = top;
+  btn.style.left = "20px";
+  btn.style.zIndex = "9999";
+  document.body.append(btn);
+}
 
 function startLoop(A, B, N) {
   stopLoop();
