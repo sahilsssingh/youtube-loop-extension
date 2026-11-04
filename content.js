@@ -21,6 +21,17 @@ function makeButton(label, top, onClick){
 }
 
 function startLoop(A, B, N) {
+  
+  if (A === null || B === null){
+    alert("Put start and end time before playing")
+    return
+  }
+
+  if (A >= B){
+    alert("End time cant be before start time")
+    return
+  }
+
   stopLoop();
   vid.currentTime = A;
 
