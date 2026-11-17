@@ -2,11 +2,19 @@ const vid = document.querySelector("video");
 let timerId = null;
 let startTime = null;
 let endTime = null;
-let playNumber = Number(prompt("How many times should the part play?"));
+const loopsInput = document.createElement("input");
+loopsInput.type = "number";
+loopsInput.min = "1";
+loopsInput.value = "3";
+document.body.append(loopsInput);
+loopsInput.style.position = "fixed";
+loopsInput.style.top = "140px";
+loopsInput.style.left = "20px";
+loopsInput.style.zIndex = "9999";
  
 makeButton("Set Start", "60px", () => {startTime = vid.currentTime})
 makeButton("Set End", "80px", () => {endTime = vid.currentTime})
-makeButton("Start Playing", "100px", () => {startLoop(startTime, endTime, playNumber)})
+makeButton("Start Playing", "100px", () => {startLoop(startTime, endTime, Number(loopsInput.value))})
 makeButton("Stop Playing", "120px", () => {stopLoop()})
 
 function makeButton(label, top, onClick){
@@ -28,7 +36,12 @@ function startLoop(A, B, N) {
   }
 
   if (A >= B){
-    alert("End time cant be before start time")
+    alert("End time must be after start time")
+    return
+  }
+
+  if (!Number.isInteger(N) || N < 1){
+    alert("Enter a valid number of loops")
     return
   }
 
