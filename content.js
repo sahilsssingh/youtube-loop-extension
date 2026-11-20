@@ -2,30 +2,30 @@ const vid = document.querySelector("video");
 let timerId = null;
 let startTime = null;
 let endTime = null;
+
+const buttonContainer = document.createElement("div");
+buttonContainer.style.display = "flex";
+buttonContainer.style.gap = "8px";
+buttonContainer.style.position = "fixed";
+buttonContainer.style.zIndex = "9999";
+document.body.append(buttonContainer);
+
+makeButton("Set Start", () => {startTime = vid.currentTime})
+makeButton("Set End", () => {endTime = vid.currentTime})
+makeButton("Start Playing", () => {startLoop(startTime, endTime, Number(loopsInput.value))})
+makeButton("Stop Playing", () => {stopLoop()})
+
 const loopsInput = document.createElement("input");
 loopsInput.type = "number";
 loopsInput.min = "1";
 loopsInput.value = "3";
-document.body.append(loopsInput);
-loopsInput.style.position = "fixed";
-loopsInput.style.top = "140px";
-loopsInput.style.left = "20px";
-loopsInput.style.zIndex = "9999";
- 
-makeButton("Set Start", "60px", () => {startTime = vid.currentTime})
-makeButton("Set End", "80px", () => {endTime = vid.currentTime})
-makeButton("Start Playing", "100px", () => {startLoop(startTime, endTime, Number(loopsInput.value))})
-makeButton("Stop Playing", "120px", () => {stopLoop()})
+buttonContainer.append(loopsInput);
 
-function makeButton(label, top, onClick){
+function makeButton(label, onClick){
   const btn = document.createElement("button");
   btn.textContent = label;
   btn.addEventListener("click", onClick);
-  btn.style.position = "fixed";
-  btn.style.top = top;
-  btn.style.left = "20px";
-  btn.style.zIndex = "9999";
-  document.body.append(btn);
+  buttonContainer.append(btn);
 }
 
 function startLoop(A, B, N) {
