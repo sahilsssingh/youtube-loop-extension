@@ -45,7 +45,7 @@
   shouldn't wipe out a loop that was working.
 - **Trade-offs:** The check must come before stopLoop(), and the user
   needs a message, otherwise nothing seems to happen.
-  
+
 ## Decision 6: Controls inside the video player, not below it
 - **Options considered:** Popup (already ruled out), a row below the
   video, a panel inside the video player, or inside YouTube's own control
@@ -68,6 +68,26 @@
   YouTube's controls so it doesn't leave a gap.
 - **Trade-offs:** Its position has to be tuned for each mode, and it won't
   automatically follow YouTube's elements.
+
+## Decision 8: yt-navigate-finish to detect page changes
+- **Options considered:** The yt-navigate-finish event, or a
+  MutationObserver (polling every second was left out because it wastes
+  effort).
+- **Why I chose this:** It fires only when YouTube navigates, which is
+  exactly when I need it, and it's one line that I can fully understand
+  and explain. I tested it by logging every navigation.
+- **Trade-offs:** It's an undocumented event, so YouTube could change it.
+  MutationObserver is the fallback if that happens.
+
+## Decision 9: Check for the panel's class name on the page, not a variable flag
+- **Options considered:** A variable like panelBuilt set to true after
+  building, or looking for the panel's own class name on the page.
+- **Why I chose this:** A flag only remembers that I built a panel once.
+  If YouTube rebuilds the player and the panel is gone, the flag still
+  says true and the panel never comes back. Asking the page itself is
+  always accurate.
+- **Trade-offs:** A small page lookup on each navigation, and I need to
+  give the panel a distinctive class name.
 
 ## Open questions
 - Should the number mean total plays or extra repeats? Currently total
