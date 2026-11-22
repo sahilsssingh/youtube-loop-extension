@@ -45,6 +45,29 @@
   shouldn't wipe out a loop that was working.
 - **Trade-offs:** The check must come before stopLoop(), and the user
   needs a message, otherwise nothing seems to happen.
+  
+## Decision 6: Controls inside the video player, not below it
+- **Options considered:** Popup (already ruled out), a row below the
+  video, a panel inside the video player, or inside YouTube's own control
+  bar.
+- **Why I chose this:** In fullscreen the area below the video isn't
+  visible, so controls there can't be reached. Inside the player they work
+  in normal, theater, and fullscreen mode, and they follow the video's
+  position and size.
+- **Trade-offs:** More complex than a row below the video, and the panel
+  sits on top of the picture. The control bar is YouTube's own and gets
+  re-rendered, so I avoided it.
+
+## Decision 7: Standalone panel at a fixed spot, instead of anchoring to YouTube's elements
+- **Options considered:** My own panel at a fixed spot inside the player,
+  or attaching it to YouTube's logo and buttons so it moves with them.
+- **Why I chose this:** Those elements move and differ between normal and
+  fullscreen mode, and they depend on YouTube's internal layout, which
+  changes. A standalone panel needs only one placement. I put it at the
+  bottom left, just above the progress bar, and it will hide together with
+  YouTube's controls so it doesn't leave a gap.
+- **Trade-offs:** Its position has to be tuned for each mode, and it won't
+  automatically follow YouTube's elements.
 
 ## Open questions
 - Should the number mean total plays or extra repeats? Currently total
