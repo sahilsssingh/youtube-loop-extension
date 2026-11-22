@@ -1,27 +1,40 @@
-const vid = document.querySelector("video");
+let vid = null;
+let moviePlayer = null;
 let timerId = null;
 let startTime = null;
 let endTime = null;
 
-const buttonContainer = document.createElement("div");
-buttonContainer.style.display = "flex";
-buttonContainer.style.gap = "8px";
-buttonContainer.style.position = "fixed";
-buttonContainer.style.zIndex = "9999";
-document.body.append(buttonContainer);
+function createPanel(){
+  vid = document.querySelector("video");
+  moviePlayer = document.querySelector("#movie_player");
 
-makeButton("Set Start", () => {startTime = vid.currentTime})
-makeButton("Set End", () => {endTime = vid.currentTime})
-makeButton("Start Playing", () => {startLoop(startTime, endTime, Number(loopsInput.value))})
-makeButton("Stop Playing", () => {stopLoop()})
+  if (vid === null || moviePlayer === null){
+    return
+  }
 
-const loopsInput = document.createElement("input");
-loopsInput.type = "number";
-loopsInput.min = "1";
-loopsInput.value = "3";
-buttonContainer.append(loopsInput);
+  const buttonContainer = document.createElement("div");
+  buttonContainer.style.display = "flex";
+  buttonContainer.style.gap = "10px";
+  buttonContainer.style.position = "absolute";
+  buttonContainer.style.left = "12px";
+  buttonContainer.style.bottom = "80px";
+  buttonContainer.style.zIndex = "9999";
+  moviePlayer.append(buttonContainer);
 
-function makeButton(label, onClick){
+  makeButton("Set Start", () => {startTime = vid.currentTime}, buttonContainer)
+  makeButton("Set End", () => {endTime = vid.currentTime}, buttonContainer)
+
+  const loopsInput = document.createElement("input");
+  loopsInput.type = "number";
+  loopsInput.min = "1";
+  loopsInput.value = "3";
+  buttonContainer.append(loopsInput);
+
+  makeButton("Start Playing", () => {startLoop(startTime, endTime, Number(loopsInput.value))}, buttonContainer)
+  makeButton("Stop Playing", () => {stopLoop()}, buttonContainer)
+}
+
+function makeButton(label, onClick, buttonContainer){
   const btn = document.createElement("button");
   btn.textContent = label;
   btn.addEventListener("click", onClick);
@@ -63,3 +76,5 @@ function startLoop(A, B, N) {
 function stopLoop() {
   clearInterval(timerId);
 }
+
+createPanel()
