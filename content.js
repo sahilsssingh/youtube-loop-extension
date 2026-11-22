@@ -12,7 +12,12 @@ function createPanel(){
     return
   }
 
+  if (moviePlayer.querySelector(".ytLoop-panel")){
+    return
+  }
+
   const buttonContainer = document.createElement("div");
+  buttonContainer.className = "ytLoop-panel";
   buttonContainer.style.display = "flex";
   buttonContainer.style.gap = "10px";
   buttonContainer.style.position = "absolute";
@@ -77,4 +82,5 @@ function stopLoop() {
   clearInterval(timerId);
 }
 
-createPanel()
+createPanel();
+document.addEventListener("yt-navigate-finish", createPanel);
