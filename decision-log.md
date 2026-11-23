@@ -89,6 +89,17 @@
 - **Trade-offs:** A small page lookup on each navigation, and I need to
   give the panel a distinctive class name.
 
+## Decision 10: Hide the panel with a style element that follows YouTube's own state
+- **Options considered:** A style element with a CSS rule that reads the
+  ytp-autohide class YouTube puts on the player, or mouse events with a
+  timer in JavaScript.
+- **Why I chose this:** YouTube already knows when its controls are
+  visible, so my panel stays exactly in sync with its timing. With mouse
+  events I would be guessing the timing and could get out of sync.
+- **Trade-offs:** It depends on an undocumented YouTube class. If YouTube
+  renames it, the panel just stays visible, which is a harmless failure.
+  Less JavaScript practice than the events option.
+
 ## Open questions
 - Should the number mean total plays or extra repeats? Currently total
   plays. I'll ask friends and decide after seeing what's less confusing.
