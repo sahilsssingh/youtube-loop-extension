@@ -35,6 +35,8 @@ function createPanel(){
   loopsInput.value = "3";
   buttonContainer.append(loopsInput);
 
+  loopsInput.addEventListener("keydown", (event) => {event.stopPropagation()});
+
   makeButton("Start Playing", () => {startLoop(startTime, endTime, Number(loopsInput.value))}, buttonContainer)
   makeButton("Stop Playing", () => {stopLoop()}, buttonContainer)
 }
@@ -82,5 +84,11 @@ function stopLoop() {
   clearInterval(timerId);
 }
 
-createPanel();
-document.addEventListener("yt-navigate-finish", createPanel);
+function onNavigation(){
+  stopLoop();
+  startTime = null;
+  endTime = null;
+  createPanel();
+}
+
+document.addEventListener("yt-navigate-finish", onNavigation);
