@@ -92,3 +92,7 @@
 ## Open questions
 - Should the number mean total plays or extra repeats? Currently total
   plays. I'll ask friends and decide after seeing what's less confusing.
+- Should the loops box keep the last number I typed when I move to
+  another video, or reset to the default of 3? Currently it keeps the
+  last value (the panel isn't rebuilt on navigation). I'll decide after
+  watching how test users behave.
